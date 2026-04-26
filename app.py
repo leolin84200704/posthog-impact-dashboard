@@ -164,7 +164,9 @@ for i, (_, row) in enumerate(top5.iterrows()):
             render_evidence(row["evidence_prs"])
             st.markdown(
                 f'<div class="small">'
-                f'Ship: pr_score={row["ship_pr_score"]:.1f}, engagement={row["ship_engagement_avg"]:.0%} (n={row["ship_engagement_n"]}), reverts={row["ship_revert_count"]}<br/>'
+                f'Ship: pr_score={row["ship_pr_score"]:.1f}, engagement={row["ship_engagement_avg"]:.0%} '
+                f'(n={row["ship_engagement_n"]}{" — imputed (too few eligible PRs)" if row.get("ship_engagement_imputed") else ""}), '
+                f'reverts={row["ship_revert_count"]}<br/>'
                 f'Lift: PageRank={row["lift_pagerank"]:.4f}, deep_reviews={row["lift_deep_review_count"]}, OSS replies={row["lift_oss_replies"]} (resolved={row["lift_oss_resolved"]})<br/>'
                 f'Reach: codeowner={row["reach_codeowner"]}, arch_PRs={row["reach_arch_count"]}, critical_labels={row["reach_critical_label_count"]}, issues_closed={row["reach_issues_resolved"]}<br/>'
                 f'Steer: pushback={row["steer_pushback_count"]}, review_requested={row["steer_review_requests_received"]}'

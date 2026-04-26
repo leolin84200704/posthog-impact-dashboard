@@ -22,10 +22,14 @@ CRITICAL_LABELS = {
     "bug", "p0", "p1", "incident", "critical", "security", "regression",
     "customer", "customer-impact", "kind/bug", "severity/high", "severity/critical",
     "high-priority", "blocker",
+    # PostHog-specific (observed in label inventory):
+    "priority-review",
 }
 ARCH_LABELS = {
     "architecture", "refactor", "infrastructure", "schema", "migration",
     "platform", "design",
+    # PostHog-specific:
+    "infrastructure",
 }
 
 
@@ -341,11 +345,24 @@ def main():
 
     # ---- Assemble per-engineer scoreboard ----
     rows = []
+    # Global mean engagement (used to impute for engineers with too few eligible PRs)
+    all_eng_vals = []
+    for login in engineers:
+        all_eng_vals.extend(by_author[login]["ship_engagement_vals"])
+    global_eng_mean = sum(all_eng_vals) / len(all_eng_vals) if all_eng_vals else 0.0
+
     for login in engineers:
         agg = by_author[login]
         eng_vals = agg["ship_engagement_vals"]
-        eng_avg = sum(eng_vals) / len(eng_vals) if eng_vals else None
+        # Only score on actual data when there are >=2 eligible PRs; impute global mean otherwise
+        if len(eng_vals) >= 2:
+            eng_avg = sum(eng_vals) / len(eng_vals)
+            eng_imputed = False
+        else:
+            eng_avg = global_eng_mean
+            eng_imputed = True
         rows.append({
+            "ship_engagement_imputed": eng_imputed,
             "login": login,
             # Ship raw signals
             "ship_pr_score": agg["ship_pr_score"],
