@@ -147,6 +147,17 @@ for i, (_, row) in enumerate(top5.iterrows()):
             f'{row["lift_review_count"]} reviews</span>',
             unsafe_allow_html=True,
         )
+        # Headline PR: top of evidence list
+        ev = row.get("evidence_prs") or []
+        if ev:
+            top_pr = ev[0]
+            st.markdown(
+                f'<div class="small" style="margin-top:4px;">'
+                f'Top PR: <a href="{top_pr["url"]}" target="_blank">#{top_pr["number"]}</a> '
+                f'{top_pr["title"][:70]}{"..." if len(top_pr["title"]) > 70 else ""}'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
         st.plotly_chart(radar(row), use_container_width=True, config={"displayModeBar": False})
         with st.expander("Evidence", expanded=(i == 0)):
             st.markdown("**Top PRs**")
