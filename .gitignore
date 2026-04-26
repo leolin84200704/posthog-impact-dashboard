@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+data/raw/prs.json
+data/raw/prs_partial.json
+data/raw/issues.json
+data/raw/org_members.json
+data/raw/codeowners.txt
+.streamlit/secrets.toml
+doc.md
+indicator.md
+feedback.md
