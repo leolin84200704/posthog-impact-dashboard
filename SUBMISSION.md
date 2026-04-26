@@ -2,7 +2,7 @@
 
 ## Dashboard URL
 
-`https://posthog-impact-dashboard-<TBD>.streamlit.app/`
+https://posthog-impact-dashboard-np5m2h9hvlp9gqw5hrvsvd.streamlit.app/
 
 ## Approach
 
@@ -36,4 +36,5 @@ Single-page Streamlit dashboard ranking PostHog/posthog engineers over the last 
 ## Time
 
 Start: 2026-04-26 15:14
-End: <TBD>
+End: 2026-04-26 15:48
+Total: ~33 minutes (after framework alignment discussion)
