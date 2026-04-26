@@ -41,6 +41,14 @@ The framework is a synthesis, not a reproduction of one paper. The multi-dimensi
 - Refactors that close few formal issues are systematically under-credited; per-pillar leaderboards exist partly to compensate.
 - CODEOWNERS at PostHog uses team handles; individual ownership is inferred via the de-facto-owner heuristic.
 
+## AI session log
+
+All work in this submission was done in collaboration with Claude Code (Opus 4.7). Full unedited session transcript: [`claude-session.jsonl`](./claude-session.jsonl) *(recruiter email redacted; no other modifications)*.
+
+Notable moments:
+- I pushed back on the initial framework with 5 specific critiques: (1) the "still alive at window end" engagement metric was structurally wrong for a 90-day window; (2) the no-semantic PR filter risked killing surgical 1-line fixes — switch to AST-aware / source-file-only check; (3) LLM counterfactual narratives are sycophantic and unverifiable — drop or RAG-cite; (4) PostHog being open-source means external-issue triage is real work that needed its own signal; (5) bot detection should not rely solely on a known-list — use `user.type == "Bot"` + `[bot]` suffix as well.
+- All 5 were incorporated and visibly changed the design — see Engagement formula, no-semantic filter, OSS-triage signal in Lift, and 3-layer bot check.
+
 ## Time
 
 | Phase | Window | Duration |
